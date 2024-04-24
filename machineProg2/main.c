@@ -1,13 +1,15 @@
-#include "game_util.c"
 #include "commands.c"
-#include "client.c"
+#include "game_util.c"
 
 int main() {
 
-    static char msg[1024];
-    msg[0] = 'M';
-    connectToServer(1312);
+    int c;
     struct Board board;
+    int i = 0;
+    while(i<52){
+        board.deck[i].created = false;
+        i++;
+    }
 
     board.input[0] = '\0';
 
@@ -21,22 +23,14 @@ int main() {
 
     bool exit = false;
 
-    setDeckToDefoult(&board.deck);
-    sr(&board);
-    p(&board);
-
     while(!exit) {
-
         printBord(&board);
-        formatForServer(&board, msg);
-        writeToServer(msg);
-        readFromServer(msg);
 
-        for(int i = 0; i < 21; i++){
-            board.input[i] = msg[i];
-        }
-        board.input[21] = '\0';
-        int method = findMethod(&board.input, &board.output, board.playPhase);
+        scanf("%20[^\n]", board.input);
+
+        while ((c = getchar()) != '\n' && c != EOF);
+
+        int method = findMethod(&board.input, board.playPhase);
 
         switch (method) {
             case 1:
@@ -85,10 +79,9 @@ int main() {
                 message(board.output, l(&board));
                 break;
             default:
-                message(&board.output, method);
+                message(&board.input, method);
                 break;
         }
     }
-    abort();
     return 0;
 }

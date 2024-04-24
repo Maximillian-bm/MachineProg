@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdbool.h>
 #include <time.h>
 #include <stdlib.h>
 #include "structs_util.c"
@@ -15,6 +17,8 @@ int r(struct Board*);
 int s(struct Board*);
 int l(struct Board*);
 
+//If agumet is given, loads the deck in the file of the agiment name else loads defult deck
+//If a deck is loaded returns 1 else returns error info
 int ld(struct Board *board){
     FILE *filePointer;
     int i = 0;
@@ -71,7 +75,7 @@ int ld(struct Board *board){
                 j = 0;
                 while(j<52){
                     board->deck[j].created = false;
-                   j++;
+                    j++;
                 }
                 return 500+i+1;
         }
@@ -106,6 +110,7 @@ int ld(struct Board *board){
 
     return 1;
 }
+//If deck is loaded flips all cards face up and returns 1 else returns 3
 int sw(struct Board *board){
     bool valid = false;
     int i = 0;
@@ -121,8 +126,18 @@ int sw(struct Board *board){
     }
     return 1;
 }
+//If agument is given splits deck acordingly and returns 1 if agument is invalid returns 0
+//If agument isnt given uses 26 as agument and returns 1
+//If deck isnt loaded returns 3
 int si(struct Board *board){
     int i = 0;
+    while(i<52) {
+        if(!board->deck[i].created) {
+            return 3;
+        }
+        i++;
+    }
+    i = 0;
     int split = 26;
     if(board->aguement[0] == ' '){
         i = 1;
@@ -176,6 +191,7 @@ int si(struct Board *board){
     }
     return 1;
 }
+//If deck isnt loaded returns 3 else shuffels deck and returns 1
 int sr(struct Board *board){
 
     struct Card b;
@@ -187,7 +203,15 @@ int sr(struct Board *board){
     board->deck[51].nextCard = &t;
     board->deck[51].prevCard = &b;
 
-    int i = 50;
+    int i = 0;
+    while(i<52) {
+        if(!board->deck[i].created) {
+            return 3;
+        }
+        i++;
+    }
+
+    i = 50;
 
     while(i >= 0){
         srand(time(0));
@@ -214,6 +238,7 @@ int sr(struct Board *board){
     }
     return 1;
 }
+//Saves deck to a file and returns 0 or returns 2 if unable to create file
 int sd(struct Board *board){
 
     FILE *filePointer;
@@ -251,6 +276,7 @@ int sd(struct Board *board){
 
     return 1;
 }
+//If deck isnt loaded returns 3 else setups game and returns 1
 int p(struct Board *board){
 
     int k = 0;
@@ -323,6 +349,7 @@ int p(struct Board *board){
     board->playPhase = true;
     return 1;
 }
+//stops game and retrns 1
 int q(struct Board *board){
     int i = 0;
     while(i < 52){
@@ -335,6 +362,7 @@ int q(struct Board *board){
     board->rLog = NULL;
     return 1;
 }
+//If move is legal executes move and returns 1 else returns 4
 int move(struct Board *board){
     struct Card *from;
     struct Card *to;
@@ -407,6 +435,10 @@ int move(struct Board *board){
             thisMove.cfTo = dc;
             thisMove.pileTo = dn;
             thisMove.hidden = false;
+            if(from->prevCard != NULL){
+                thisMove.hidden = from->prevCard->hidden;
+                from->prevCard->hidden = false;
+            }
             saveLog(board, thisMove);
             board->c[dn] = from;
             if(fromF && from->prevCard == NULL){
@@ -463,6 +495,10 @@ int move(struct Board *board){
             thisMove.cfTo = dc;
             thisMove.pileTo = dn;
             thisMove.hidden = false;
+            if(from->prevCard != NULL){
+                thisMove.hidden = from->prevCard->hidden;
+                from->prevCard->hidden = false;
+            }
             saveLog(board, thisMove);
             board->f[dn] = from;
             if (fromF && from->prevCard == NULL) {
@@ -505,6 +541,7 @@ int move(struct Board *board){
         return 4;
     }
 }
+//Undo last move and returns 1 or returns 5 if no move is saved
 int u(struct Board *board){
     if(board->uLog == NULL){
         return 5;
@@ -537,6 +574,7 @@ int u(struct Board *board){
     board->uLog = board->uLog->prevLog;
     return 1;
 }
+//Redo last undo and returns 1 or returns 6 if no undo is saved
 int r(struct Board *board){
     if(board->rLog == NULL){
         return 6;

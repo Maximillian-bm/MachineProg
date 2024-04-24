@@ -3,6 +3,6 @@ project(MachineProgOffLine)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(MachineProgOffLine main.c)
+add_executable(MachineProg2 main.c)
 
-target_link_libraries(MachineProgOffLine Ws2_32)
+target_link_libraries(MachineProg2 Ws2_32)

@@ -1,9 +1,11 @@
 #include <stdbool.h>
 
 void findAgument(char*, char*, int);
-int findMethod(char*, char*, bool);
+int findMethod(char*, bool);
 void message(char*, int);
 
+//given the nummber of the command called and the input string, stores parts of the input string in the given rtnStr
+//so that the first chars that represent the command the user wants to be called
 void findAgument(char *cmdStr, char *rtnStr, int aguNum){
 // in the "input" find and return the agument.
 // in the case that the agunum is 1, 5, 12 or 13, return the filename in "input"
@@ -40,8 +42,9 @@ void findAgument(char *cmdStr, char *rtnStr, int aguNum){
         }
     }
 }
-
-int findMethod(char *input, char *output, bool playPhase){
+//Given the input string and bool represnting playphase returns the int that represents the command to be called
+//if input is invalid returns 0;
+int findMethod(char *input, bool playPhase){
 // return the number assotiated with the command saved in "input"
 // if input is not valid return 0
     if(playPhase){
@@ -125,7 +128,7 @@ int findMethod(char *input, char *output, bool playPhase){
     }
     return 0;
 }
-
+//Given an int, stores the apropriate message in the given string
 void message(char* str, int i){
     if(i>=500 && i<600){
         int line = i - 500;

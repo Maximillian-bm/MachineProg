@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <malloc.h>
+#include <stdio.h>
 #include "structs.c"
 
 void cardAt(struct Card*, int, char*);
@@ -14,8 +14,9 @@ bool moveAontopofB(struct Card*, struct Card*);
 void saveLog(struct Board*, struct Log);
 void freeLogsAbove(struct Log*);
 void freeAllLogs(struct Log*);
-void formatForServer(struct Board*, char*);
 
+//store the suit and num of card 'at' number of cards over the given cards pointer
+//If that card is hidden saves '[]'
 void cardAt(struct Card* card, int at, char* cardPointer) {
     // Error handling
     if (card == NULL) {
@@ -44,7 +45,7 @@ void cardAt(struct Card* card, int at, char* cardPointer) {
         }
     }
 }
-
+//store the suit and num of card at top of the list of cards from the given card pointer
 void cardAtTop(struct Card* card, char* cardPointer){
     // Error handling
     if (card == NULL) {
@@ -60,7 +61,7 @@ void cardAtTop(struct Card* card, char* cardPointer){
         return;
     }
 }
-
+//returns the char represented by given int eg (12 would return Q)
 char cardNumToChar(int value) {
     if (value < 1 || value > 13) {
         printf("Error: Value must be between 1 and 13. Received: %d\n", value);
@@ -81,7 +82,7 @@ char cardNumToChar(int value) {
             return (char)(value+'0');
     }
 }
-
+//returns the int represented by given char eg (Q would return 12)
 int cardCharToNum(char value) {
 
     switch (value) {
@@ -116,7 +117,7 @@ int cardCharToNum(char value) {
             return 0;
     }
 }
-
+//returns the cardpointer of the card 'i' number of cards over card
 struct Card* cardPointerAt(struct Card* card, int i){
     if(i <= 0 || card == NULL){
         return card;
@@ -124,8 +125,7 @@ struct Card* cardPointerAt(struct Card* card, int i){
         return cardPointerAt(card->nextCard, i-1);
     }
 }
-
-
+//returns the cardpointer at the top of the list of the given cardpointer
 struct Card* cardPointerAtTop(struct Card* card){
     if(card == NULL){
         return NULL;
@@ -135,7 +135,7 @@ struct Card* cardPointerAtTop(struct Card* card){
         return cardPointerAtTop(card->nextCard);
     }
 }
-
+//Sets the deck given in agument to defult deck
 void setDeckToDefoult(struct Card deck[]){
     int i = 0;
     while(i<52){
@@ -155,7 +155,7 @@ void setDeckToDefoult(struct Card deck[]){
         i++;
     }
 }
-
+//prints the state of the board given as agument
 void printBord(struct Board *board){
     printf("\n");
     if(board->playPhase){
@@ -233,7 +233,8 @@ void printBord(struct Board *board){
     }
 
 }
-
+//Moves card a on top of card b and sets card under a to visible and returns true
+//Or returns false if imposible
 bool moveAontopofB(struct Card *a, struct Card *b){
 
     if(b->nextCard != NULL){
@@ -250,7 +251,7 @@ bool moveAontopofB(struct Card *a, struct Card *b){
     return true;
 
 }
-
+//saves the given log in the given board
 void saveLog(struct Board* board, struct Log l){
     freeLogsAbove(board->uLog);
     board->rLog = NULL;
@@ -261,14 +262,14 @@ void saveLog(struct Board* board, struct Log l){
     if(board->uLog != NULL) board->uLog->nextLog = log;
     board->uLog = log;
 }
-
+//removes all logs above given log
 void freeLogsAbove(struct Log* log){
     if(log != NULL){
         freeLogsAbove(log->nextLog);
         free(log->nextLog);
     }
 }
-
+//removes all logs over and under given log
 void freeAllLogs(struct Log* log){
     if(log->prevLog == NULL){
         freeLogsAbove(log);
@@ -277,7 +278,7 @@ void freeAllLogs(struct Log* log){
         freeAllLogs(log->prevLog);
     }
 }
-
+//Returns the log at the botten of the list from the given log
 struct Log* firstLog(struct Log* log){
     if(log == NULL || log->prevLog == NULL){
         return log;
