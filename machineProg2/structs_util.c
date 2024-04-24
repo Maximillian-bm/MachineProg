@@ -271,7 +271,9 @@ void freeLogsAbove(struct Log* log){
 }
 //removes all logs over and under given log
 void freeAllLogs(struct Log* log){
-    if(log->prevLog == NULL){
+    if(log == NULL){
+        return;
+    }else if(log->prevLog == NULL){
         freeLogsAbove(log);
         free(log);
     }else{
