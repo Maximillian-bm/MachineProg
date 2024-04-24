@@ -1,0 +1,9 @@
+[
+  {"face_down": 0, "face_up": 1},
+  {"face_down": 1, "face_up": 5},
+  {"face_down": 2, "face_up": 5},
+  {"face_down": 3, "face_up": 5},
+  {"face_down": 4, "face_up": 5},
+  {"face_down": 5, "face_up": 5},
+  {"face_down": 6, "face_up": 5}
+]

@@ -1,0 +1,7 @@
+machineprog2\kortspilgui\view\View.class
+machineprog2\kortspilgui\Main.class
+module-info.class
+machineprog2\kortspilgui\controller\Controller.class
+machineprog2\kortspilgui\controller\Observer.class
+machineprog2\kortspilgui\util\Constants.class
+machineprog2\kortspilgui\model\Card.class
