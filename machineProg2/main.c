@@ -84,7 +84,6 @@ int main() {
         printf("Play phase test failed\n");
     }
 
-    playPhase = true;
     input = "QQ";
     if (findMethod(input, playPhase) == 6){
         printf("Exit game test passed\n");
@@ -92,11 +91,12 @@ int main() {
         printf("Exit game test failed\n");
     }
 
+    playPhase = true;
     input = "Q";
     if (findMethod(input, playPhase) == 8) {
-        printf("Start phase test passed\n");
+        printf("Exit play phase test passed\n");
     } else {
-        printf("Start phase test failed\n");
+        printf("Exit play phase test failed\n");
     }
 
     input = "C";
