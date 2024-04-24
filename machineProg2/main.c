@@ -1,13 +1,16 @@
 #include "game_util.c"
 #include "commands.c"
-#include "../../backend/client.c"
+#include "client.c"
 
 int main() {
 
     static char msg[1024];
-    msg[0] = 'M';
     connectToServer(1312);
     struct Board board;
+
+    for(int i = 0; i < 52; i++){
+        board.deck[i].created = false;
+    }
 
     board.input[0] = '\0';
 
@@ -36,7 +39,7 @@ int main() {
             board.input[i] = msg[i];
         }
         board.input[21] = '\0';
-        int method = findMethod(&board.input, &board.output, board.playPhase);
+        int method = findMethod(&board.input, board.playPhase);
 
         switch (method) {
             case 1:
