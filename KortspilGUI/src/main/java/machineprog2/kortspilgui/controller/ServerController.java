@@ -27,7 +27,7 @@ public class ServerController implements Runnable {
             Consumer<String> messageHandler = (message) -> {
                 System.out.println("Received from client: " + message);
                 // Call a method to process the message
-                receiveMessageFromServer(message);
+                receiveMessageFromClient(message);
             };
 
             // Create a ServerSocket and bind it to a port
@@ -58,11 +58,11 @@ public class ServerController implements Runnable {
         }
     }
 
-    public void receiveMessageFromServer(String receivedMessage) {
+    public void receiveMessageFromClient(String receivedMessage) {
         System.out.println("Received from client: " + receivedMessage);
     }
 
-    public void sendCommandToServer(String msg) {
+    public void sendCommandToClient(String msg) {
         try {
             OutputStream outputStream = clientSocket.getOutputStream();
             outputStream.write(msg.getBytes());
