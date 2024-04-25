@@ -24,15 +24,8 @@ int main() {
 
     bool exit = false;
 
-    setDeckToDefoult(&board.deck);
-    sr(&board);
-    p(&board);
-
     while(!exit) {
 
-        printBord(&board);
-        formatForServer(&board, msg);
-        writeToServer(msg);
         readFromServer(msg);
 
         for(int i = 0; i < 21; i++){
@@ -91,6 +84,9 @@ int main() {
                 message(&board.output, method);
                 break;
         }
+        formatForServer(&board, msg);
+        writeToServer(msg);
+        printBord(&board);
     }
     abort();
     return 0;
