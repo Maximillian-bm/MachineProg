@@ -1,83 +1,89 @@
 package machineprog2.kortspilgui.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.function.Consumer;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class ServerController implements Runnable {
-    private final int port;
-    private Controller ctrl;
-
-    public ServerController(int port, Controller ctrl) {
-        this.port = port;
-        this.ctrl = ctrl;
-
-    }
+public class ServerController {
+    private final BlockingQueue<String> sendMessageQueue = new LinkedBlockingQueue<>();
+    private ServerSocket serverSocket;
     private Socket clientSocket;
+    private BufferedReader in;
+    private PrintWriter out;
 
-    @Override
-    public void run() {
+    public ServerController(int port) {
         try {
-            // Lambda function to handle received messages
-            Consumer<String> messageHandler = (message) -> {
-                System.out.println("Received from client: " + message);
-                // Call a method to process the message
-                receiveMessageFromClient(message);
-            };
+            serverSocket = new ServerSocket(port);
+            System.out.println("Server started. Waiting for clients to connect...");
 
-            // Create a ServerSocket and bind it to a port
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Server started. Waiting for client...");
+            // Start server in a separate thread
+            Thread serverThread = new Thread(this::startServer);
+            serverThread.start();
+        } catch (IOException e) {
+            System.out.println("ERROR in ServerController! Message: " + e.getMessage());
+        }
+    }
 
-            // Accept client connection
+    private void startServer() {
+        try {
             clientSocket = serverSocket.accept();
             System.out.println("Client connected.");
 
-            // Send welcome message to the client
-            OutputStream outputStream = clientSocket.getOutputStream();
-            String welcomeMessage = "Welcome to the server!";
-            outputStream.write(welcomeMessage.getBytes());
-            System.out.println("Sent to client: " + welcomeMessage);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-            // Get input stream from the client
-            InputStream inputStream = clientSocket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            // Thread for receiving messages from client
+            Thread receiveThread = new Thread(this::receiveMessages);
+            receiveThread.start();
 
-            // Read messages from the client and pass them to the messageHandler lambda function
-            String message;
-            while ((message = reader.readLine()) != null) {
-                // Pass received message to the handler
-                messageHandler.accept(message);
-            }
-
-            // Close the reader and socket
-            System.out.println("Server closing.");
-            reader.close();
-            outputStream.close();
-            clientSocket.close();
-            serverSocket.close();
+            // Thread for sending messages to client
+            Thread sendThread = new Thread(this::sendMessages);
+            sendThread.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("ERROR in startServer! Message: " + e.getMessage());
         }
     }
 
-    public void receiveMessageFromClient(String receivedMessage) {
+    private void receiveMessages() {
+        try {
+            String clientMessage;
+            while ((clientMessage = in.readLine()) != null) {
+                if (clientMessage.equalsIgnoreCase("exit")) {
+                    System.out.println("Client exited. Closing server.");
+                    break;
+                }
+                messageFromClient(clientMessage);
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR in receiveMessages! Message: " + e.getMessage());
+        }
+    }
+
+    private void sendMessages() {
+        try {
+            while (true) {
+                String serverMessage = sendMessageQueue.take(); // Block until a message is available
+                System.out.println("Sending message: " + serverMessage);
+                out.println(serverMessage);
+                out.flush(); // Manually flushing the output stream
+                if (serverMessage.equalsIgnoreCase("exit")) {
+                    System.out.println("Exit. Closing server.");
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR in sendMessages! Message: " + e.getMessage());
+        }
+    }
+
+    public void messageFromClient(String receivedMessage) {
         System.out.println("Received from client: " + receivedMessage);
     }
 
-    public void sendCommandToClient(String msg) {
-        try {
-            OutputStream outputStream = clientSocket.getOutputStream();
-            outputStream.write(msg.getBytes());
-            System.out.println("Sent to client: " + msg);
-            outputStream.close();
-        } catch (IOException e) {
-            System.out.println("IOException. Msg: " + e.getMessage());
-        }
+    public void messageToClient(String msg) {
+        System.out.println("Adding message to queue: " + msg);
+        sendMessageQueue.offer(msg);
     }
 }

@@ -47,13 +47,9 @@ public class Controller implements Initializable {
         initializeDragController(rootPane);
         initializeRootPaneEventListeners();
 
-        // Start the server and listen for messages
+        // Start the server
         int port = 1312;
-        serverCtrl = new ServerController(port, this);
-
-        // Starting server in another thread
-        Thread serverThread = new Thread(serverCtrl);
-        serverThread.start();
+        serverCtrl = new ServerController(port);
     }
 
     public void keyPressed(KeyCode keyCode) {
@@ -143,13 +139,13 @@ public class Controller implements Initializable {
 
     @FXML
     private void event_newGame() {
-        System.out.println("Start new game");
+        System.out.println("Starting new game...");
         setMainMenuVisible(false);
 
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
-        serverCtrl.sendCommandToClient("Start et nyt spil!");
+        serverCtrl.messageToClient("Start et nyt spil!");
     }
 
     @FXML
