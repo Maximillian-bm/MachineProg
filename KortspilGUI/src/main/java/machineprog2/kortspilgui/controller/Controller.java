@@ -81,8 +81,18 @@ public class Controller implements Initializable {
      *  updateBoard("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
      */
     private void setBoardFromString(String boardString) {
-        StringUtility.updateColumnsFromString(cardColumns, boardString);
+        resetBoard();
+        StringUtility.updateBoardFromString(cardColumns, cardFountains, boardString);
         updateCardEventListeners();
+    }
+
+    private void resetBoard() {
+        for (int i = 0; i < 7; i++) {
+            cardColumns.get(i).reset();
+        }
+        for (int i = 0; i < 4; i++) {
+            cardFountains.get(i).reset();
+        }
     }
 
     private void updateCardEventListeners() {
@@ -157,14 +167,17 @@ public class Controller implements Initializable {
 
     @FXML
     private void event_newGame() {
-        System.out.println("Starting new game...");
         setMainMenuVisible(false);
+        System.out.println("Starting new game...");
+        resetBoard();
 
-        addRandomCardsFromJSON();
-
-        // TODO: Kald backend og bed om nyt spil
-        SendMessageToClient("LD");
-        SendMessageToClient("SR");
+        if (WITH_BACKEND) {
+            // TODO: Kald backend og bed om nyt spil
+            SendMessageToClient("LD");
+            SendMessageToClient("SR");
+        } else {
+            addRandomCardsFromJSON();
+        }
     }
 
     @FXML

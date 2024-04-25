@@ -280,11 +280,12 @@ CMakeFiles/MachineProg2.dir/main.c.obj: C:/Users/Gusta/Documents/Uni/Maskinkode/
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/ws2tcpip.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/wtypes.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/wtypesbase.h \
-  C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/client.c \
-  C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/commands.c \
-  C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/game_util.c \
-  C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/structs.c \
-  C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/structs_util.c
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/client.c \
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/commands.c \
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/game_util.c \
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/main.c \
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/structs.c \
+  C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/structs_util.c
 
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h:
@@ -441,8 +442,6 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/cldemoteintrin.h:
 
-C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/game_util.c:
-
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/clflushoptintrin.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/clwbintrin.h:
@@ -464,8 +463,6 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/ia32intrin.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/lzcntintrin.h:
-
-C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/structs.c:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/immintrin.h:
 
@@ -663,6 +660,8 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/malloc.h:
 
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/main.c:
+
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/windef.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/pshpack1.h:
@@ -672,6 +671,8 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/mcx.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/minwinbase.h:
+
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/game_util.c:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/minwindef.h:
 
@@ -741,6 +742,8 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/psdk_inc/intrin-impl.h:
 
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/structs.c:
+
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/pshpack2.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/pshpack4.h:
@@ -767,6 +770,8 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sal.h:
 
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/commands.c:
+
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sdkddkver.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h:
@@ -774,8 +779,6 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stralign_s.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h:
-
-C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/client.c:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/securityappcontainer.h:
 
@@ -841,8 +844,6 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/winsvc.h:
 
-C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/commands.c:
-
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/winuser.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/winver.h:
@@ -853,4 +854,6 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/wtypes.h:
 
-C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode\ Projekt/MachineProg/machineProg2/structs_util.c:
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/client.c:
+
+C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/structs_util.c:

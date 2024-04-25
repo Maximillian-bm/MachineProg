@@ -36,6 +36,8 @@ public class DragController {
 
     public static void initializeCardEventListeners(Card card) {
         card.getStackPane().setOnMouseEntered(event -> {
+            if (card.getIsInFountain()) return;
+
             topMostHoveredCard = card;
             if (card.getVisible()) {
                 for (Card cardInStack : card.getColumn().getCardsOnTop(card)) {
@@ -44,6 +46,8 @@ public class DragController {
             }
         });
         card.getStackPane().setOnMouseExited(event -> {
+            if (card.getIsInFountain()) return;
+
             if (topMostHoveredCard == card) {
                 topMostHoveredCard = null;
                 for (Card cardInStack : card.getColumn().getCardsOnTop(card)) {
@@ -55,7 +59,7 @@ public class DragController {
 
     public static void initializeRootPaneEventListeners() { // Checking for all cards individually in scene. If not done like this, .setOnMouseDragged on cards would only get the top node at the mouse position
         rootPane.setOnMousePressed(event -> {
-            if (topMostHoveredCard == null) return;
+            if (topMostHoveredCard == null || topMostHoveredCard.getIsInFountain()) return;
 
             if (topMostHoveredCard.getVisible()) {
                 draggedCard = topMostHoveredCard;
@@ -87,22 +91,24 @@ public class DragController {
             // Clear effect
             for (Card cardInScene : Controller.getCards()) {
                 cardInScene.getStackPane().setEffect(null);
-                if (draggedCard != null || cardInScene != topMostHoveredCard) { // Clear if dragging. If not, don't clear the topMostHoveredCard.
-
+            }
+            for (CardFountain fountainInScene : Controller.getFountains()) {
+                fountainInScene.getStackPane().setEffect(null);
+                for (Card cardInFountain : Controller.getCards()) {
+                    cardInFountain.getStackPane().setEffect(null);
                 }
             }
 
             // Highlight the fountain below mouse
             CardFountain fountainAtMouse = getFountainAtMouse(event);
             if (fountainAtMouse != null) {
-                boolean shouldBeHighlighted = false;
-                if (fountainAtMouse.getFountainSuit() == draggedCard.getSuit()) {
+                if (fountainAtMouse.getFountainSuit() == draggedCard.getSuit() && draggedCard.getColumn().getTopCard() == draggedCard) {
                     if (fountainAtMouse.getCards().isEmpty()) {
-                        // Highlight fountainStackPane
-                        fountainAtMouse.getStackPane().setEffect(innerShadowEffect);
+                        if (draggedCard.getValue() == 1) {
+                            fountainAtMouse.getStackPane().setEffect(innerShadowEffect);
+                        }
                     } else {
                         if (fountainAtMouse.getTopCard().getValue() - 1 == draggedCard.getValue()) {
-                            // Highlight the top card of fountain
                             fountainAtMouse.getTopCard().getStackPane().setEffect(innerShadowEffect);
                         }
                     }
@@ -120,7 +126,7 @@ public class DragController {
             // Return if we didn't find a column different from the dragging stack
             if (topCardOfHoveredColumn == null) return;
             // If it's a legal move, highlight the card
-            if (topCardOfHoveredColumn.hasOtherColor(draggedCard)) {
+            if ((topCardOfHoveredColumn.getSuit() != draggedCard.getSuit()) && (topCardOfHoveredColumn.getValue() - 1 == draggedCard.getValue())) {
                 topCardOfHoveredColumn.getStackPane().setEffect(innerShadowEffect);
             }
         });
@@ -128,6 +134,31 @@ public class DragController {
         rootPane.setOnMouseReleased(event -> {
             // Return if we're not holding a card
             if (draggedCard == null) return;
+
+            // Handle dropping on fountain
+            CardFountain fountainAtMouse = getFountainAtMouse(event);
+            if (fountainAtMouse != null) {
+                if (fountainAtMouse.getFountainSuit() == draggedCard.getSuit() && draggedCard.getColumn().getTopCard() == draggedCard) {
+                    if (fountainAtMouse.getCards().isEmpty()) {
+                        if (draggedCard.getValue() == 1) {
+                            moveCardToFountain(draggedCard, draggedCard.getColumn(), fountainAtMouse);
+                            draggedCard = null;
+                            return;
+                        }
+                    } else {
+                        if (fountainAtMouse.getTopCard().getValue() - 1 == draggedCard.getValue()) {
+                            moveCardToFountain(draggedCard, draggedCard.getColumn(), fountainAtMouse);
+                            draggedCard = null;
+                            return;
+                        }
+                    }
+                }
+                moveCardsToColumn(draggedCard.getColumn().getCardsOnTop(draggedCard), draggedCard.getColumn(), draggedCard.getColumn());
+                draggedCard = null;
+                return;
+            }
+
+            // Handle dropping on column
             // Get top card
             Card topCardOfHoveredColumn = null;
             for (Card cardAtMouse : getCardsAtMouse(event)) {
@@ -142,7 +173,7 @@ public class DragController {
             CardColumn toColumn = draggedCard.getColumn();
             if (topCardOfHoveredColumn == null) { // TODO: Handle what happens visuallyg at the different scenarios
                 //System.out.println("Couldn't find column to place cards at. Putting cards back to column " + cardColumns.indexOf(toColumn));
-            } else if (true) { // TODO: Replace "true" with a check if dropped card is allowed on top of topCardOfHoveredColumn
+            } else if ((topCardOfHoveredColumn.getSuit() != draggedCard.getSuit()) && (topCardOfHoveredColumn.getValue() - 1 == draggedCard.getValue())) { // VALIDATING IF LEGAL MOVE
                 toColumn = topCardOfHoveredColumn.getColumn();
                 //System.out.println("Placing cards at column " + cardColumns.indexOf(toColumn));
             } else {
@@ -155,25 +186,33 @@ public class DragController {
     }
 
     private static void moveCardsToColumn(List<Card> cardsToMove, CardColumn fromColumn, CardColumn toColumn) {
+        for (Card cardInStack : cardsToMove) {
+            StackPane stackPane = cardInStack.getStackPane();
+            // Remove stackPane from dragVBox
+            dragVBox.getChildren().remove(stackPane);
+            // Remove card from previous cardColumn
+            fromColumn.removeCard(cardInStack);
+            // Add card to new cardColumn
+            toColumn.addCard(cardInStack);
+        }
         if (ctrl.WITH_BACKEND) {
-            for (Card cardInStack : cardsToMove) {
-                StackPane stackPane = cardInStack.getStackPane();
-                // Put card stackPane back to column dragVBox
-                dragVBox.getChildren().remove(stackPane);
-                fromColumn.getVBox().getChildren().add(stackPane);
-            }
             // Send message to backend
             ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardsToMove.getFirst(), toColumn));
-        } else {
-            for (Card cardInStack : cardsToMove) {
-                StackPane stackPane = cardInStack.getStackPane();
-                // Remove stackPane from dragVBox
-                dragVBox.getChildren().remove(stackPane);
-                // Remove card from previous cardColumn
-                fromColumn.removeCard(cardInStack);
-                // Add card to new cardColumn
-                toColumn.addCard(cardInStack);
-            }
+        }
+    }
+
+    private static void moveCardToFountain(Card cardToMove, CardColumn fromColumn, CardFountain toFountain) {
+        StackPane stackPane = cardToMove.getStackPane();
+        // Remove from dragVBox
+        dragVBox.getChildren().remove(stackPane);
+        // Remove from column
+        fromColumn.removeCard(cardToMove);
+        // Add to fountain
+        toFountain.addCard(cardToMove);
+        if (ctrl.WITH_BACKEND) {
+            // Send message to backend
+            ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardToMove, toFountain));
+            toFountain.getStackPane().setEffect(null);
         }
     }
 

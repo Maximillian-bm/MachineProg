@@ -14,6 +14,7 @@ public class Card {
 
     private boolean visible;
     private CardColumn column;
+    private boolean isInFountain;
 
     public Card(int value, Suit suit, boolean visible) {
         //System.out.println("Making new card with suit " + suit + " and value " + value);
@@ -118,11 +119,19 @@ public class Card {
         return Character.toString(cardValueToChar(value)) + cardSuitToChar(suit);
     }
     public String getPositionAsString() {
-        return String.valueOf(column.getColumnNumber() + 1) + column.getCardRow(this);
+        return String.valueOf(column.getIndex() + 1) + column.getCardRow(this);
     }
 
     public boolean hasOtherColor(Card otherCard) {
         return (this.suit == Suit.Clubs || this.suit == Suit.Spades) && (otherCard.suit == Suit.Hearts || otherCard.suit == Suit.Diamonds) ||
                 (this.suit == Suit.Hearts || this.suit == Suit.Diamonds) && (otherCard.suit == Suit.Clubs || otherCard.suit == Suit.Spades);
+    }
+
+    public void setIsInFountain(boolean isInFountain) {
+        this.isInFountain = isInFountain;
+    }
+
+    public boolean getIsInFountain() {
+        return isInFountain;
     }
 }

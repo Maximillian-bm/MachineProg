@@ -3,26 +3,21 @@ package machineprog2.kortspilgui.model;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
-public class CardFountain {
-    private final VBox vBox;
-    private final int fountainNumber;
+public class CardFountain extends CardContainer {
     private final Suit fountainSuit;
     private final Image fountainImage;
-    private final StackPane fountainRootStackPane;
-    private final Stack<Card> cards = new Stack<>();
+    private StackPane fountainRootStackPane;
 
-    public CardFountain(VBox vBox, int fountainNumber) {
-        this.vBox = vBox;
-        this.fountainNumber = fountainNumber;
-        this.fountainSuit = switch (fountainNumber) {
+    public CardFountain(VBox vBox, int index) {
+        super(vBox, index);
+        this.fountainSuit = switch (index) {
             case 0 -> Suit.Spades;
             case 1 -> Suit.Hearts;
             case 2 -> Suit.Clubs;
@@ -30,7 +25,6 @@ public class CardFountain {
             default -> Suit.Spades;
         };
         this.fountainImage = getFountainImage();
-        this.fountainRootStackPane = findStackPane(vBox);
     }
 
     public VBox getVBox() {
@@ -40,6 +34,7 @@ public class CardFountain {
     public void addCard(Card card) {
         vBox.getChildren().add(card.getStackPane());
         cards.addLast(card);
+        card.setIsInFountain(true);
     }
 
     public Stack<Card> getCards() {
@@ -54,17 +49,22 @@ public class CardFountain {
         return fountainSuit;
     }
 
-    public void resetFountain() {
-        vBox.getChildren().clear();
-        cards.clear();
+    public int getIndex() {
+        return index;
     }
 
-    public int getFountainNumber() {
-        return fountainNumber;
+    @Override
+    public String toString() {
+        return "F" + (index + 1);
     }
 
-    public String fountainAsString() {
-        return "F" + (fountainNumber + 1);
+    @Override
+    public void reset() {
+        super.reset();
+        CardJavaFX cardJavaFX = new CardJavaFX(1);
+        cardJavaFX.imageView.setImage(fountainImage);
+        vBox.getChildren().add(cardJavaFX.stackPane);
+        fountainRootStackPane = cardJavaFX.stackPane;
     }
 
     public StackPane getStackPane() {
@@ -79,19 +79,5 @@ public class CardFountain {
             System.out.println("Error importing card image with path: " + imagePath);
             return null;
         }
-    }
-
-    private StackPane findStackPane(Parent parent) {
-        for (Node node : parent.getChildrenUnmodifiable()) {
-            if (node instanceof StackPane) {
-                return (StackPane) node;
-            } else if (node instanceof Parent) {
-                StackPane stackPane = findStackPane((Parent) node);
-                if (stackPane != null) {
-                    return stackPane;
-                }
-            }
-        }
-        return null;
     }
 }

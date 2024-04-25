@@ -2,34 +2,36 @@ package machineprog2.kortspilgui.util;
 
 import machineprog2.kortspilgui.model.Card;
 import machineprog2.kortspilgui.model.CardColumn;
-import machineprog2.kortspilgui.model.Suit;
+import machineprog2.kortspilgui.model.CardContainer;
+import machineprog2.kortspilgui.model.CardFountain;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StringUtility {
 
-    static public void updateColumnsFromString(List<CardColumn> columns, String input) {
+    static public void updateBoardFromString(List<CardColumn> columns, List<CardFountain> fountains, String input) {
         String[] tokens = input.split("\\s{2,}"); // Split by "  ". (Two spaces)
-
         for (int i = 0; i < 7; i++) {
-            columns.get(i).resetColumn();
-            List<Card> columnCards = getColumnCardsFromString(tokens[i]);
-
+            List<Card> columnCards = getCardsFromString(tokens[i]);
             for (Card card : columnCards) {
                 columns.get(i).addCard(card);
             }
         }
+        for (int i = 7; i < 11; i++) {
+            List<Card> fountainsCards = getCardsFromString(tokens[i]);
+            for (Card card : fountainsCards) {
+                fountains.get(i).addCard(card);
+            }
+        }
     }
 
-    static private List<Card> getColumnCardsFromString(String input) {
+    static private List<Card> getCardsFromString(String input) {
         List<Card> cardsFromString = new ArrayList<>();
         String[] tokens = input.split("(?<=\\G.{2})"); // Split by " ". (One space)
-
         for (String token : tokens) {
             cardsFromString.add(getCardFromString(token));
         }
-
         return cardsFromString;
     }
 
@@ -41,7 +43,7 @@ public class StringUtility {
         }
     }
 
-    static public String formatMoveCommand(Card cardToMove, CardColumn toColumn) {
-        return cardToMove.getColumn().columnAsString() + ":" + cardToMove + "->" + toColumn.columnAsString();
+    static public String formatMoveCommand(Card cardToMove, CardContainer toContainer) {
+        return cardToMove.getColumn().toString() + ":" + cardToMove + "->" + toContainer.toString();
     }
 }

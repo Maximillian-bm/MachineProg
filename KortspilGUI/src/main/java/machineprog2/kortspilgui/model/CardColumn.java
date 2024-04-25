@@ -6,14 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class CardColumn {
-    private final VBox vBox;
-    private final int columnNumber;
-    private final Stack<Card> cards = new Stack<>();
-
-    public CardColumn(VBox vBox, int columnNumber) {
-        this.vBox = vBox;
-        this.columnNumber = columnNumber;
+public class CardColumn extends CardContainer {
+    public CardColumn(VBox vBox, int index) {
+        super(vBox, index);
     }
 
     public VBox getVBox() {
@@ -42,20 +37,16 @@ public class CardColumn {
         return cards.getLast();
     }
 
-    public void resetColumn() {
-        vBox.getChildren().clear();
-        cards.clear();
-    }
-
     public int getCardRow(Card card) {
         return cards.indexOf(card);
     }
 
-    public int getColumnNumber() {
-        return columnNumber;
+    public int getIndex() {
+        return index;
     }
 
-    public String columnAsString() {
-        return "C" + (columnNumber + 1);
+    @Override
+    public String toString() {
+        return "C" + (index + 1);
     }
 }

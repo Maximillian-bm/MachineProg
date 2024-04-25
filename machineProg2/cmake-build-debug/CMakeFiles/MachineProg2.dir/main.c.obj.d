@@ -1,8 +1,8 @@
 CMakeFiles/MachineProg2.dir/main.c.obj: \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\main.c \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\game_util.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\main.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\game_util.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\commands.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\commands.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
@@ -29,9 +29,9 @@ CMakeFiles/MachineProg2.dir/main.c.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/errno.h \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\structs_util.c \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\structs.c \
- C:\Users\Bruger\Documents\Code\MachineProg\machineProg2\client.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\structs_util.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\structs.c \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\client.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/winsock2.h \

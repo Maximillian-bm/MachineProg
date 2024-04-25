@@ -6,9 +6,18 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 public class CardJavaFX {
-    public final StackPane stackPane;
-    public final ImageView imageView;
+    public StackPane stackPane;
+    public ImageView imageView;
     public CardJavaFX() {
+        createCardJavaFX();
+    }
+    public CardJavaFX(double height) {
+        createCardJavaFX();
+        stackPane.setMinSize(Region.USE_COMPUTED_SIZE, height);
+        stackPane.setPrefSize(Region.USE_COMPUTED_SIZE, height);
+        stackPane.setMaxSize(Region.USE_COMPUTED_SIZE, height);
+    }
+    public void createCardJavaFX() {
         imageView = new ImageView();
         imageView.setFitWidth(81);
         imageView.setFitHeight(126);
