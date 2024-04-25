@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import static machineprog2.kortspilgui.controller.DragController.*;
 
@@ -46,11 +47,13 @@ public class Controller implements Initializable {
         initializeDragController(rootPane);
         initializeRootPaneEventListeners();
 
-        // Starting server in another thread
+        // Start the server and listen for messages
         int port = 1312;
         serverCtrl = new ServerController(port, this);
-        //Thread serverThread = new Thread(serverCtrl);
-        //serverThread.start();
+
+        // Starting server in another thread
+        Thread serverThread = new Thread(serverCtrl);
+        serverThread.start();
     }
 
     public void keyPressed(KeyCode keyCode) {
@@ -146,7 +149,7 @@ public class Controller implements Initializable {
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
-        serverCtrl.sendCommandToServer("Start et nyt spil!");
+        //serverCtrl.sendCommandToServer("Start et nyt spil!");
     }
 
     @FXML
