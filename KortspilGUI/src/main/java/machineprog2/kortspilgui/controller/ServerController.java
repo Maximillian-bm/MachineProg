@@ -38,6 +38,12 @@ public class ServerController implements Runnable {
             clientSocket = serverSocket.accept();
             System.out.println("Client connected.");
 
+            // Send welcome message to the client
+            OutputStream outputStream = clientSocket.getOutputStream();
+            String welcomeMessage = "Welcome to the server!";
+            outputStream.write(welcomeMessage.getBytes());
+            System.out.println("Sent to client: " + welcomeMessage);
+
             // Get input stream from the client
             InputStream inputStream = clientSocket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -50,7 +56,9 @@ public class ServerController implements Runnable {
             }
 
             // Close the reader and socket
+            System.out.println("Server closing.");
             reader.close();
+            outputStream.close();
             clientSocket.close();
             serverSocket.close();
         } catch (IOException e) {
