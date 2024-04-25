@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.function.Consumer;
 
 public class ServerController {
     private final int port;
@@ -35,16 +38,38 @@ public class ServerController {
             outputStream.write(msg.getBytes());
             System.out.println("Sent to client: " + msg);
 
-            // Close streams and socket
+            // Close output stream
             outputStream.close();
-            //clientSocket.close();
-            //serverSocket.close();
+
+            // Lambda function to handle received messages
+            Consumer<String> messageHandler = (message) -> {
+                System.out.println("Received message: " + message);
+                // Call a method to process the message
+                receiveMessageFromServer(message);
+            };
+
+            // Start listening for messages
+            startListening(messageHandler);
+
         } catch (IOException e) {
             System.out.println("IOException. Msg: " + e.getMessage());
         }
     }
 
-    public void receiveExample() {
+    public void startListening(Consumer<String> messageHandler) {
+        // Simulating message reception from a client
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            String message;
+            while ((message = reader.readLine()) != null) {
+                // Pass received message to the handler
+                messageHandler.accept(message);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receiveMessageFromServer(String msg) {
         try {
             InputStream inputStream = clientSocket.getInputStream();
             // Receive data from client
@@ -66,9 +91,9 @@ public class ServerController {
             outputStream.write(msg.getBytes());
             System.out.println("Sent to client: " + msg);
             outputStream.close();
+
         } catch (IOException e) {
             System.out.println("IOException. Msg: " + e.getMessage());
         }
     }
 }
-

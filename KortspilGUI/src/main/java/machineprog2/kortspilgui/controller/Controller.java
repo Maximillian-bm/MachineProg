@@ -36,12 +36,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Starting server in another thread
-        int port = 1312;
-        serverCtrl = new ServerController(port, this);
-        //Thread serverThread = new Thread(serverCtrl);
-        //serverThread.start();
-
         mainMenu.setVisible(true);
         AtomicInteger columnNumber = new AtomicInteger(0);
         columnsHBox.getChildren().stream()
@@ -51,6 +45,12 @@ public class Controller implements Initializable {
 
         initializeDragController(rootPane);
         initializeRootPaneEventListeners();
+
+        // Starting server in another thread
+        int port = 1312;
+        serverCtrl = new ServerController(port, this);
+        //Thread serverThread = new Thread(serverCtrl);
+        //serverThread.start();
     }
 
     public void keyPressed(KeyCode keyCode) {
