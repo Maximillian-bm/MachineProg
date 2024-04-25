@@ -13,17 +13,11 @@ public class ServerController implements Runnable {
         this.port = port;
         this.ctrl = ctrl;
     }
-    private OutputStream outputStream;
+    private Socket clientSocket;
 
     @Override
     public void run() {
         try {
-            boolean yo = true;
-            while (yo) {
-                System.out.println("Running in another thread!");
-                Thread.sleep(1000);
-            }
-
             // Create a ServerSocket and bind it to a port
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Server started. Waiting for client...");
@@ -34,7 +28,7 @@ public class ServerController implements Runnable {
 
             // Get input and output streams
             InputStream inputStream = clientSocket.getInputStream();
-            outputStream = clientSocket.getOutputStream();
+            OutputStream outputStream = clientSocket.getOutputStream();
 
             // Continuously send and receive data
             while (true) {
@@ -59,19 +53,18 @@ public class ServerController implements Runnable {
             clientSocket.close();
             serverSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("IOException. Msg: " + e.getMessage());
         }
     }
 
     public void sendCommandToServer(String msg) {
         try {
+            OutputStream outputStream = clientSocket.getOutputStream();
             outputStream.write(msg.getBytes());
             System.out.println("Sent to client: " + msg);
-
+            outputStream.close();
         } catch (IOException e) {
-            System.out.println("IOEXCeption. Msg: " + e.getMessage());
+            System.out.println("IOException. Msg: " + e.getMessage());
         }
     }
 }

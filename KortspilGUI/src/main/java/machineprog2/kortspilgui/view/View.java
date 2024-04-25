@@ -27,7 +27,7 @@ public class View implements Observer {
 
     public void start(Stage stage) throws IOException {
         try {
-            Runtime.getRuntime().exec("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\main.exe", null, new File("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\"));
+            //Runtime.getRuntime().exec("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\main.exe", null, new File("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\"));
         } catch (Exception e) {
             System.out.println("error loading .exe");
         }
