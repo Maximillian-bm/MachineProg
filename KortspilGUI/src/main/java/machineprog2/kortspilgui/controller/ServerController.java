@@ -69,9 +69,10 @@ public class ServerController {
     private void sendMessages() {
         try {
             while (true) {
+                //Thread.sleep(1000);
                 String serverMessage = sendMessageQueue.take(); // Block until a message is available
                 System.out.println("Sending message: " + serverMessage);
-                out.println(serverMessage);
+                out.print(serverMessage);
                 out.flush(); // Manually flushing the output stream
                 if (serverMessage.equalsIgnoreCase("exit")) {
                     System.out.println("Exit. Closing server.");

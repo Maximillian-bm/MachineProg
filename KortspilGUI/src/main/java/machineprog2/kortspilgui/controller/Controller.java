@@ -57,9 +57,11 @@ public class Controller implements Initializable {
         initializeDragController(rootPane, this);
         initializeRootPaneEventListeners();
 
-        // Start the server
-        int port = 1312;
-        serverCtrl = new ServerController(port);
+        if (WITH_BACKEND) {
+            // Start the server
+            int port = 1312;
+            serverCtrl = new ServerController(port);
+        }
     }
 
     public void keyPressed(KeyCode keyCode) {

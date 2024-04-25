@@ -2,7 +2,6 @@ CMakeFiles/MachineProg2.dir/main.c.obj: \
  C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\main.c \
  C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\game_util.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
- C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\commands.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
@@ -14,6 +13,7 @@ CMakeFiles/MachineProg2.dir/main.c.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+ C:\Users\Gusta\Documents\Uni\Maskinkode\Maskinkode\ Projekt\MachineProg\machineProg2\commands.c \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/time.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sys/timeb.h \
