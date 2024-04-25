@@ -145,7 +145,8 @@ public class Controller implements Initializable {
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
-        serverCtrl.messageToClient("Start et nyt spil!");
+        serverCtrl.messageToClient("LD");
+        serverCtrl.messageToClient("SR");
     }
 
     @FXML

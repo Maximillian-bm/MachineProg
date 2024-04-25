@@ -50,14 +50,19 @@ public class ServerController {
         try {
             String clientMessage;
             while ((clientMessage = in.readLine()) != null) {
+                Thread.sleep(1);
                 if (clientMessage.equalsIgnoreCase("exit")) {
                     System.out.println("Client exited. Closing server.");
                     break;
                 }
+                System.out.println("Received from client2: " + clientMessage);
+
                 messageFromClient(clientMessage);
             }
         } catch (IOException e) {
-            System.out.println("ERROR in receiveMessages! Message: " + e.getMessage());
+            System.out.println("ERROR! IOException in receiveMessages. Message: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("ERROR! InterruptedException in receiveMessages. Message: " + e.getMessage());
         }
     }
 
@@ -73,7 +78,7 @@ public class ServerController {
                     break;
                 }
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             System.out.println("ERROR in sendMessages! Message: " + e.getMessage());
         }
     }
@@ -83,7 +88,9 @@ public class ServerController {
     }
 
     public void messageToClient(String msg) {
-        System.out.println("Adding message to queue: " + msg);
-        sendMessageQueue.offer(msg);
+        boolean offered = sendMessageQueue.offer(msg);
+        if (!offered) {
+            System.out.println("Error in adding message to queue. Message: '" + msg + "'");
+        }
     }
 }
