@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Bruger/Documents/Code/MachineProg/machineProg2/cmake-build-debug"
+			"value" : "c:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode Projekt/MachineProg/machineProg2/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -643,7 +643,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode Projekt/MachineProg/machineProg2/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -715,7 +715,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Bruger/Documents/Code/MachineProg/machineProg2"
+			"value" : "C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode Projekt/MachineProg/machineProg2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1351,7 +1351,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Bruger/Documents/Code/MachineProg/machineProg2/cmake-build-debug"
+			"value" : "C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode Projekt/MachineProg/machineProg2/cmake-build-debug"
 		},
 		{
 			"name" : "MachineProgOffLine_IS_TOP_LEVEL",
@@ -1375,7 +1375,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Bruger/Documents/Code/MachineProg/machineProg2"
+			"value" : "C:/Users/Gusta/Documents/Uni/Maskinkode/Maskinkode Projekt/MachineProg/machineProg2"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",

@@ -7,7 +7,7 @@ import machineprog2.kortspilgui.model.Suit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringParser {
+public class StringUtility {
 
     static public void updateColumnsFromString(List<CardColumn> columns, String input) {
         String[] tokens = input.split("\\s{2,}"); // Split by "  ". (Two spaces)
@@ -37,23 +37,11 @@ public class StringParser {
         if (input.equals("[]")) {
             return new Card(0, null, false);
         } else {
-            int value = switch (input.substring(0, 1)) {
-                case "A" -> 1;
-                case "T" -> 10;
-                case "J" -> 11;
-                case "Q" -> 12;
-                case "K" -> 13;
-                default -> Integer.parseInt(input.substring(0, 1));
-            };
-
-            Suit suit = switch (input.substring(1)) {
-                case "S" -> Suit.Spades;
-                case "H" -> Suit.Hearts;
-                case "C" -> Suit.Clubs;
-                case "D" -> Suit.Diamonds;
-                default -> Suit.Spades;
-            };
-            return new Card(value, suit, true);
+            return new Card(Card.cardValueFromChar(input.charAt(0)), Card.cardSuitFromChar(input.charAt(1)), true);
         }
+    }
+
+    static public String formatMoveCommand(Card cardToMove, CardColumn toColumn) {
+        return cardToMove.getColumn().columnAsString() + ":" + cardToMove + "->" + toColumn.columnAsString();
     }
 }

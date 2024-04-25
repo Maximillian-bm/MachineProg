@@ -46,4 +46,16 @@ public class CardColumn {
         vBox.getChildren().clear();
         cards.clear();
     }
+
+    public int getCardRow(Card card) {
+        return cards.indexOf(card);
+    }
+
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+
+    public String columnAsString() {
+        return "C" + (columnNumber + 1);
+    }
 }

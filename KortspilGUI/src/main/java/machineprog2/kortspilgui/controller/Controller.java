@@ -7,30 +7,34 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import machineprog2.kortspilgui.model.*;
-import machineprog2.kortspilgui.util.StringParser;
+import machineprog2.kortspilgui.util.StringUtility;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 import static machineprog2.kortspilgui.controller.DragController.*;
 
 public class Controller implements Initializable {
     private final List<Observer> observers;
     private static final List<CardColumn> cardColumns = new ArrayList<>();
+    private static final List<CardFountain> cardFountains = new ArrayList<>();
     private static ServerController serverCtrl;
     private static final Random random = new Random();
+    public final boolean WITH_BACKEND;
 
     public Controller() {
         this.observers = new ArrayList<>();
+        this.WITH_BACKEND = true;
     }
 
     @FXML
     private Pane mainMenu;
     @FXML
     private HBox columnsHBox;
+    @FXML
+    public VBox fountainsVBox;
     @FXML
     private AnchorPane rootPane;
 
@@ -44,7 +48,13 @@ public class Controller implements Initializable {
                 .map(node -> (VBox) node)
                 .forEach(node -> cardColumns.addLast(new CardColumn(node, columnNumber.getAndIncrement())));
 
-        initializeDragController(rootPane);
+        AtomicInteger fountainNumber = new AtomicInteger(0);
+        fountainsVBox.getChildren().stream()
+                .filter(node -> node instanceof VBox)
+                .map(node -> (VBox) node)
+                .forEach(node -> cardFountains.addLast(new CardFountain(node, fountainNumber.getAndIncrement())));
+
+        initializeDragController(rootPane, this);
         initializeRootPaneEventListeners();
 
         // Start the server
@@ -71,7 +81,7 @@ public class Controller implements Initializable {
      *  updateBoard("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
      */
     private void setBoardFromString(String boardString) {
-        StringParser.updateColumnsFromString(cardColumns, boardString);
+        StringUtility.updateColumnsFromString(cardColumns, boardString);
         updateCardEventListeners();
     }
 
@@ -89,6 +99,10 @@ public class Controller implements Initializable {
             cardList.addAll(column.getCards());
         }
         return cardList;
+    }
+
+    public static List<CardFountain> getFountains() {
+        return cardFountains;
     }
 
     public Controller addObserver(Observer observer) {
@@ -137,6 +151,10 @@ public class Controller implements Initializable {
         updateCardEventListeners();
     }
 
+    public void SendMessageToClient(String message) {
+        serverCtrl.addMessageToClient(message);
+    }
+
     @FXML
     private void event_newGame() {
         System.out.println("Starting new game...");
@@ -145,8 +163,8 @@ public class Controller implements Initializable {
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
-        serverCtrl.messageToClient("LD");
-        serverCtrl.messageToClient("SR");
+        SendMessageToClient("LD");
+        SendMessageToClient("SR");
     }
 
     @FXML

@@ -57,7 +57,7 @@ public class ServerController {
                 }
                 System.out.println("Received from client2: " + clientMessage);
 
-                messageFromClient(clientMessage);
+                handleMessageFromClient(clientMessage);
             }
         } catch (IOException e) {
             System.out.println("ERROR! IOException in receiveMessages. Message: " + e.getMessage());
@@ -83,14 +83,14 @@ public class ServerController {
         }
     }
 
-    public void messageFromClient(String receivedMessage) {
+    public void handleMessageFromClient(String receivedMessage) {
         System.out.println("Received from client: " + receivedMessage);
     }
 
-    public void messageToClient(String msg) {
-        boolean offered = sendMessageQueue.offer(msg);
+    public void addMessageToClient(String message) {
+        boolean offered = sendMessageQueue.offer(message);
         if (!offered) {
-            System.out.println("Error in adding message to queue. Message: '" + msg + "'");
+            System.out.println("Error in adding message to queue. Message: '" + message + "'");
         }
     }
 }

@@ -9,7 +9,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import machineprog2.kortspilgui.model.Card;
 import machineprog2.kortspilgui.model.CardColumn;
+import machineprog2.kortspilgui.model.CardFountain;
 import machineprog2.kortspilgui.util.Effects;
+import machineprog2.kortspilgui.util.StringUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,15 @@ public class DragController {
     private static InnerShadow innerShadowEffect;
     private static Card draggedCard;
     private static AnchorPane rootPane;
+    private static Controller ctrl;
 
 
-    public static void initializeDragController(AnchorPane rootPane_) {
+    public static void initializeDragController(AnchorPane rootPane_, Controller ctrl_) {
         dragVBox = new VBox();
         rootPane = rootPane_;
         rootPane.getChildren().add(dragVBox);
         innerShadowEffect = Effects.getInnerShadowEffect();
+        ctrl = ctrl_;
     }
 
     public static void initializeCardEventListeners(Card card) {
@@ -87,6 +91,24 @@ public class DragController {
 
                 }
             }
+
+            // Highlight the fountain below mouse
+            CardFountain fountainAtMouse = getFountainAtMouse(event);
+            if (fountainAtMouse != null) {
+                boolean shouldBeHighlighted = false;
+                if (fountainAtMouse.getFountainSuit() == draggedCard.getSuit()) {
+                    if (fountainAtMouse.getCards().isEmpty()) {
+                        // Highlight fountainStackPane
+                        fountainAtMouse.getStackPane().setEffect(innerShadowEffect);
+                    } else {
+                        if (fountainAtMouse.getTopCard().getValue() - 1 == draggedCard.getValue()) {
+                            // Highlight the top card of fountain
+                            fountainAtMouse.getTopCard().getStackPane().setEffect(innerShadowEffect);
+                        }
+                    }
+                }
+            }
+
             // Highlight the top card of column below mouse
             Card topCardOfHoveredColumn = null;
             for (Card cardAtMouse : getCardsAtMouse(event)) {
@@ -98,7 +120,7 @@ public class DragController {
             // Return if we didn't find a column different from the dragging stack
             if (topCardOfHoveredColumn == null) return;
             // If it's a legal move, highlight the card
-            if (true) { // TODO: Replace "true" with a check if dragged card is allowed on top of topCardOfHoveredColumn
+            if (topCardOfHoveredColumn.hasOtherColor(draggedCard)) {
                 topCardOfHoveredColumn.getStackPane().setEffect(innerShadowEffect);
             }
         });
@@ -133,18 +155,25 @@ public class DragController {
     }
 
     private static void moveCardsToColumn(List<Card> cardsToMove, CardColumn fromColumn, CardColumn toColumn) {
-        for (Card cardInStack : cardsToMove) {
-            //System.out.println("Moving card " + cardInStack);
-            StackPane stackPane = cardInStack.getStackPane();
-            // Remove stackPane from dragVBox
-            //System.out.println("dragVBox currently has " + dragVBox.getChildren().size() + " children. Removing " + cardInStack);
-            dragVBox.getChildren().remove(stackPane);
-            // Remove card from previous cardColumn
-            //System.out.println("Removing " + cardInStack + " from previous cardColumn " + cardColumns.indexOf(fromColumn));
-            fromColumn.removeCard(cardInStack);
-            // Add card to new cardColumn
-            //System.out.println("Adding " + cardInStack + " to new cardColumn " + cardColumns.indexOf(toColumn));
-            toColumn.addCard(cardInStack);
+        if (ctrl.WITH_BACKEND) {
+            for (Card cardInStack : cardsToMove) {
+                StackPane stackPane = cardInStack.getStackPane();
+                // Put card stackPane back to column dragVBox
+                dragVBox.getChildren().remove(stackPane);
+                fromColumn.getVBox().getChildren().add(stackPane);
+            }
+            // Send message to backend
+            ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardsToMove.getFirst(), toColumn));
+        } else {
+            for (Card cardInStack : cardsToMove) {
+                StackPane stackPane = cardInStack.getStackPane();
+                // Remove stackPane from dragVBox
+                dragVBox.getChildren().remove(stackPane);
+                // Remove card from previous cardColumn
+                fromColumn.removeCard(cardInStack);
+                // Add card to new cardColumn
+                toColumn.addCard(cardInStack);
+            }
         }
     }
 
@@ -161,6 +190,20 @@ public class DragController {
             }
         }
         return cardsAtMouse;
+    }
+
+    private static CardFountain getFountainAtMouse(MouseEvent event) {
+        for (CardFountain fountainInScene : Controller.getFountains()) {
+            StackPane stackPane = fountainInScene.getStackPane();
+            Bounds localBounds = stackPane.getBoundsInLocal();
+            Bounds sceneBounds = stackPane.localToScene(localBounds);
+
+            if (sceneBounds.contains(new Point2D(event.getSceneX(), event.getSceneY()))) {
+                // If mouse is within bounds of a card
+                return fountainInScene;
+            }
+        }
+        return null;
     }
 
     private static void updateDragVBoxPosition(MouseEvent event) {

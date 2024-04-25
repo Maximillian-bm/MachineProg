@@ -271,76 +271,72 @@
             </HBox>
             <AnchorPane HBox.hgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="fountainsVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <StackPane alignment="TOP_CENTER">
+                        <VBox alignment="TOP_CENTER" prefHeight="126.0" prefWidth="81.0">
                            <children>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
-                                 <image>
-                                    <Image url="@art/Spades1.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/fountain_vail.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane alignment="TOP_CENTER" minHeight="10.0" prefHeight="25.0">
+                                 <children>
+                                    <ImageView fitHeight="126.0" fitWidth="81.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@art/FountainSpades.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </StackPane>
                            </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </StackPane>
-                        <StackPane alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="153.0" prefHeight="126.0">
                            <children>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/Hearts1.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/fountain_vail.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane alignment="TOP_CENTER" minHeight="10.0" prefHeight="25.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <children>
+                                    <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@art/FountainHearts.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </children>
-                        </StackPane>
-                        <StackPane alignment="TOP_CENTER" layoutX="10.0" layoutY="765.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="619.0" prefHeight="126.0">
                            <children>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/Clubs1.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/fountain_vail.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane alignment="TOP_CENTER" minHeight="10.0" prefHeight="25.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <children>
+                                    <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@art/FountainClubs.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </children>
-                        </StackPane>
-                        <StackPane alignment="TOP_CENTER" layoutX="10.0" layoutY="916.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="632.0" prefHeight="126.0">
                            <children>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/Diamonds1.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="126.0" fitWidth="81.0" layoutX="118.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@art/fountain_vail.png" />
-                                 </image>
-                              </ImageView>
+                              <StackPane alignment="TOP_CENTER" minHeight="10.0" prefHeight="25.0">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <children>
+                                    <ImageView fitHeight="126.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@art/FountainDiamonds.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
                            </children>
-                        </StackPane>
+                        </VBox>
                      </children>
                   </VBox>
                </children>

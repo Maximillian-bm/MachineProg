@@ -77,8 +77,52 @@ public class Card {
         }
     }
 
+    public static int cardValueFromChar(char character) {
+        return switch (character) {
+            case 'A' -> 1;
+            case 'T' -> 10;
+            case 'J' -> 11;
+            case 'Q' -> 12;
+            case 'K' -> 13;
+            default -> Character.getNumericValue(character);
+        };
+    }
+
+    public static char cardValueToChar(int value) {
+        return switch (value) {
+            case 1 -> 'A';
+            case 10 -> 'T';
+            case 11 -> 'J';
+            case 12 -> 'Q';
+            case 13 -> 'K';
+            default -> Character.forDigit(value, 10);
+        };
+    }
+
+    public static Suit cardSuitFromChar(char character) {
+        return switch (character) {
+            case 'S' -> Suit.Spades;
+            case 'H' -> Suit.Hearts;
+            case 'C' -> Suit.Clubs;
+            case 'D' -> Suit.Diamonds;
+            default -> Suit.Spades;
+        };
+    }
+
+    public static char cardSuitToChar(Suit suit) {
+        return suit.name().charAt(0);
+    }
+
     @Override
     public String toString() {
-        return "{" + value + " of " + suit + "}";
+        return Character.toString(cardValueToChar(value)) + cardSuitToChar(suit);
+    }
+    public String getPositionAsString() {
+        return String.valueOf(column.getColumnNumber() + 1) + column.getCardRow(this);
+    }
+
+    public boolean hasOtherColor(Card otherCard) {
+        return (this.suit == Suit.Clubs || this.suit == Suit.Spades) && (otherCard.suit == Suit.Hearts || otherCard.suit == Suit.Diamonds) ||
+                (this.suit == Suit.Hearts || this.suit == Suit.Diamonds) && (otherCard.suit == Suit.Clubs || otherCard.suit == Suit.Spades);
     }
 }
