@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MachineProg2"
+			"path" : "MachineProg2.exe"
+		},
+		{
+			"path" : "MachineProg2.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -42,7 +45,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics"
+					"fragment" : "-g -std=gnu11 -fdiagnostics-color=always"
 				}
 			],
 			"language" : "C",
@@ -77,12 +80,16 @@
 				"backtrace" : 2,
 				"fragment" : "-lWs2_32",
 				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
 	"name" : "MachineProg2",
-	"nameOnDisk" : "MachineProg2",
+	"nameOnDisk" : "MachineProg2.exe",
 	"paths" : 
 	{
 		"build" : ".",

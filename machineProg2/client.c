@@ -16,12 +16,12 @@ int connectToServer(int port){
     struct sockaddr_in server_addr;
 
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
-        printf("WSAStartup failed\n");
+        printf("\nWSAStartup failed\n");
         return -1;
     }
 
     if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
-        printf("Socket creation failed\n");
+        printf("\nSocket creation failed\n");
         WSACleanup();
         return -1;
     }
@@ -31,7 +31,7 @@ int connectToServer(int port){
     inet_pton(AF_INET, "127.0.0.1", &server_addr.sin_addr);
 
     if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
-        printf("Connection failed\n");
+        printf("\nConnection failed\n");
         closesocket(sockfd);
         WSACleanup();
         return -1;
@@ -43,14 +43,14 @@ int readFromServer(char* msg){
     memset(msg, 0, 1024);
 
     if (recv(sockfd, msg, 1024, 0) == SOCKET_ERROR) {
-        printf("Read from server failed\n");
+        printf("\nRead from server failed\n");
         return -1;
     }
     return 1;
 }
 int writeToServer(char* msg){
     if (send(sockfd, msg, strlen(msg), 0) == SOCKET_ERROR) {
-        printf("Write to server failed\n");
+        printf("\nWrite to server failed\n");
         return -1;
     }
 

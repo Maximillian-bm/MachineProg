@@ -4,7 +4,8 @@
 
 int main() {
 
-    static char msg[1024];
+    static char send[1024];
+    static char recive[1024];
     connectToServer(1312);
     struct Board board;
 
@@ -26,10 +27,15 @@ int main() {
 
     while(!exit) {
 
-        readFromServer(msg);
+        while(true){
+            readFromServer(recive);
+            if(recive[0] != '\0') break;
+            //printf("empty");
+        }
+        readFromServer(recive);
 
         for(int i = 0; i < 21; i++){
-            board.input[i] = msg[i];
+            board.input[i] = recive[i];
         }
         board.input[21] = '\0';
         int method = findMethod(&board.input, board.playPhase);
@@ -84,8 +90,8 @@ int main() {
                 message(&board.output, method);
                 break;
         }
-        formatForServer(&board, msg);
-        writeToServer(msg);
+        formatForServer(&board, send);
+        writeToServer(send);
         printBord(&board);
     }
     abort();
