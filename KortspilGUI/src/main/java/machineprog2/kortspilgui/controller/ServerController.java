@@ -6,17 +6,18 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerController implements Runnable {
+public class ServerController {
     private final int port;
     private Controller ctrl;
     public ServerController(int port, Controller ctrl) {
         this.port = port;
         this.ctrl = ctrl;
+
+        startServer();
     }
     private Socket clientSocket;
 
-    @Override
-    public void run() {
+    public void startServer() {
         try {
             // Create a ServerSocket and bind it to a port
             ServerSocket serverSocket = new ServerSocket(port);
@@ -26,32 +27,34 @@ public class ServerController implements Runnable {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client connected.");
 
-            // Get input and output streams
-            InputStream inputStream = clientSocket.getInputStream();
+            // Get output streams
             OutputStream outputStream = clientSocket.getOutputStream();
 
-            // Continuously send and receive data
-            while (true) {
-                // Receive data from client
-                byte[] buffer = new byte[1024];
-                int bytesRead = inputStream.read(buffer);
-                if (bytesRead == -1) {
-                    break; // Connection closed by client
-                }
-                String receivedMessage = new String(buffer, 0, bytesRead);
-                System.out.println("Received from client: " + receivedMessage);
-
-                // Send response to client
-                String responseMessage = "Hello from server!";
-                outputStream.write(responseMessage.getBytes());
-                System.out.println("Sent to client: " + responseMessage);
-            }
+            // Send hello to client
+            String msg = "Hello from server!";
+            outputStream.write(msg.getBytes());
+            System.out.println("Sent to client: " + msg);
 
             // Close streams and socket
-            inputStream.close();
             outputStream.close();
-            clientSocket.close();
-            serverSocket.close();
+            //clientSocket.close();
+            //serverSocket.close();
+        } catch (IOException e) {
+            System.out.println("IOException. Msg: " + e.getMessage());
+        }
+    }
+
+    public void receiveExample() {
+        try {
+            InputStream inputStream = clientSocket.getInputStream();
+            // Receive data from client
+            byte[] buffer = new byte[1024];
+            int bytesRead = inputStream.read(buffer);
+            if (bytesRead == -1) {
+                // Connection closed by client
+            }
+            String receivedMessage = new String(buffer, 0, bytesRead);
+            System.out.println("Received from client: " + receivedMessage);
         } catch (IOException e) {
             System.out.println("IOException. Msg: " + e.getMessage());
         }

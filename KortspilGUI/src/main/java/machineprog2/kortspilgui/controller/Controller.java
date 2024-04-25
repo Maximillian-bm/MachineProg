@@ -36,6 +36,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Starting server in another thread
+        int port = 1312;
+        serverCtrl = new ServerController(port, this);
+        //Thread serverThread = new Thread(serverCtrl);
+        //serverThread.start();
+
         mainMenu.setVisible(true);
         AtomicInteger columnNumber = new AtomicInteger(0);
         columnsHBox.getChildren().stream()
@@ -45,12 +51,6 @@ public class Controller implements Initializable {
 
         initializeDragController(rootPane);
         initializeRootPaneEventListeners();
-
-        // Starting server in another thread
-        int port = 1312;
-        serverCtrl = new ServerController(port, this);
-        Thread serverThread = new Thread(serverCtrl);
-        serverThread.start();
     }
 
     public void keyPressed(KeyCode keyCode) {
@@ -138,7 +138,6 @@ public class Controller implements Initializable {
         updateCardEventListeners();
     }
 
-
     @FXML
     private void event_newGame() {
         System.out.println("Start new game");
@@ -147,7 +146,7 @@ public class Controller implements Initializable {
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
-        serverCtrl.sendCommandToServer("Hej fra front end!");
+        serverCtrl.sendCommandToServer("Start et nyt spil!");
     }
 
     @FXML
