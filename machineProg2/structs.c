@@ -30,7 +30,7 @@ struct Board{
 
     char aguement[21];
 
-    char input[21];
+    char input[22];
 
     char output[21];
 

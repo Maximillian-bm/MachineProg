@@ -68,9 +68,11 @@ public class Controller implements Initializable {
         if (keyCode == KeyCode.ESCAPE) {
             setMainMenuVisible(!mainMenu.isVisible()); // toggling
         }
-        if (keyCode == KeyCode.G) {
-            System.out.println("Setting board");
-            setBoardFromString("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
+        if (!WITH_BACKEND) {
+            if (keyCode == KeyCode.G) {
+                System.out.println("Setting board");
+                setBoardFromString("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
+            }
         }
     }
 
@@ -177,6 +179,7 @@ public class Controller implements Initializable {
             // TODO: Kald backend og bed om nyt spil
             SendMessageToClient("LD");
             SendMessageToClient("SR");
+            SendMessageToClient("P");
         } else {
             addRandomCardsFromJSON();
         }

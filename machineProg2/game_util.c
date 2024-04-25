@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 void findAgument(char*, char*, int);
 int findMethod(char*, bool);

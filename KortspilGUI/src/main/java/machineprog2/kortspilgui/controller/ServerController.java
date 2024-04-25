@@ -69,7 +69,7 @@ public class ServerController {
     private void sendMessages() {
         try {
             while (true) {
-                //Thread.sleep(1000);
+                Thread.sleep(10);
                 String serverMessage = sendMessageQueue.take(); // Block until a message is available
                 System.out.println("Sending message: " + serverMessage);
                 out.print(serverMessage);
