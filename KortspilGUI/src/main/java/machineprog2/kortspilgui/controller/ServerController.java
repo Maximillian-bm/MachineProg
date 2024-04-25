@@ -8,9 +8,12 @@ import java.net.Socket;
 
 public class ServerController implements Runnable {
     private final int port;
-    public ServerController(int port) {
+    private Controller ctrl;
+    public ServerController(int port, Controller ctrl) {
         this.port = port;
+        this.ctrl = ctrl;
     }
+    private OutputStream outputStream;
 
     @Override
     public void run() {
@@ -31,7 +34,7 @@ public class ServerController implements Runnable {
 
             // Get input and output streams
             InputStream inputStream = clientSocket.getInputStream();
-            OutputStream outputStream = clientSocket.getOutputStream();
+            outputStream = clientSocket.getOutputStream();
 
             // Continuously send and receive data
             while (true) {
@@ -61,4 +64,15 @@ public class ServerController implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    public void sendCommandToServer(String msg) {
+        try {
+            outputStream.write(msg.getBytes());
+            System.out.println("Sent to client: " + msg);
+
+        } catch (IOException e) {
+            System.out.println("IOEXCeption. Msg: " + e.getMessage());
+        }
+    }
 }
+

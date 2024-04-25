@@ -48,7 +48,7 @@ public class Controller implements Initializable {
 
         // Starting server in another thread
         int port = 1312;
-        serverCtrl = new ServerController(port);
+        serverCtrl = new ServerController(port, this);
         Thread serverThread = new Thread(serverCtrl);
         serverThread.start();
     }
@@ -147,6 +147,7 @@ public class Controller implements Initializable {
         addRandomCardsFromJSON();
 
         // TODO: Kald backend og bed om nyt spil
+        serverCtrl.sendCommandToServer("Hej fra front end!");
     }
 
     @FXML
