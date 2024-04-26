@@ -8,9 +8,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ServerController {
     private final BlockingQueue<String> sendMessageQueue = new LinkedBlockingQueue<>();
+    private String lastBoardUpdate;
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private BufferedReader in;
+    private InputStream in;
     private PrintWriter out;
 
     public ServerController(int port) {
@@ -31,12 +32,8 @@ public class ServerController {
             clientSocket = serverSocket.accept();
             System.out.println("Client connected.");
 
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            in = clientSocket.getInputStream();
             out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-            // Thread for receiving messages from client
-            Thread receiveThread = new Thread(this::receiveMessages);
-            receiveThread.start();
 
             // Thread for sending messages to client
             Thread sendThread = new Thread(this::sendMessages);
@@ -46,30 +43,10 @@ public class ServerController {
         }
     }
 
-    private void receiveMessages() {
-        try {
-            String clientMessage;
-            while ((clientMessage = in.readLine()) != null) {
-                Thread.sleep(1);
-                if (clientMessage.equalsIgnoreCase("exit")) {
-                    System.out.println("Client exited. Closing server.");
-                    break;
-                }
-                System.out.println("Received from client2: " + clientMessage);
-
-                handleMessageFromClient(clientMessage);
-            }
-        } catch (IOException e) {
-            System.out.println("ERROR! IOException in receiveMessages. Message: " + e.getMessage());
-        } catch (InterruptedException e) {
-            System.out.println("ERROR! InterruptedException in receiveMessages. Message: " + e.getMessage());
-        }
-    }
-
     private void sendMessages() {
         try {
             while (true) {
-                Thread.sleep(10);
+                Thread.sleep(100);
                 String serverMessage = sendMessageQueue.take(); // Block until a message is available
                 System.out.println("Sending message: " + serverMessage);
                 out.print(serverMessage);
@@ -78,20 +55,35 @@ public class ServerController {
                     System.out.println("Exit. Closing server.");
                     break;
                 }
+                byte[] buffer = new byte[1024];
+                int bytesRead = in.read(buffer);
+                if (bytesRead == -1) {
+                    break; // Connection closed by client
+                }
+                String receivedMessage = new String(buffer, 0, bytesRead);
+                lastBoardUpdate = receivedMessage;
             }
         } catch (InterruptedException e) {
             System.out.println("ERROR in sendMessages! Message: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void handleMessageFromClient(String receivedMessage) {
-        System.out.println("Received from client: " + receivedMessage);
-    }
-
     public void addMessageToClient(String message) {
+        String r = null;
         boolean offered = sendMessageQueue.offer(message);
         if (!offered) {
             System.out.println("Error in adding message to queue. Message: '" + message + "'");
         }
+    }
+
+    public String getLastBoardUpdate(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return lastBoardUpdate;
     }
 }

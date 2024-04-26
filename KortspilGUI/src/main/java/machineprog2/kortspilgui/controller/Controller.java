@@ -38,7 +38,9 @@ public class Controller implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
-
+    public void update(){
+        setBoardFromString(serverCtrl.getLastBoardUpdate());
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainMenu.setVisible(true);
@@ -179,7 +181,10 @@ public class Controller implements Initializable {
             // TODO: Kald backend og bed om nyt spil
             SendMessageToClient("LD");
             SendMessageToClient("SR");
+            SendMessageToClient("SW");
+            SendMessageToClient("SR");
             SendMessageToClient("P");
+            update();
         } else {
             addRandomCardsFromJSON();
         }

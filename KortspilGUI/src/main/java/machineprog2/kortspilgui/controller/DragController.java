@@ -192,13 +192,9 @@ public class DragController {
             dragVBox.getChildren().remove(stackPane);
             // Remove card from previous cardColumn
             fromColumn.removeCard(cardInStack);
-            // Add card to new cardColumn
-            toColumn.addCard(cardInStack);
         }
-        if (ctrl.WITH_BACKEND) {
-            // Send message to backend
-            ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardsToMove.getFirst(), toColumn));
-        }
+        ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardsToMove.getFirst(), fromColumn, toColumn));
+        ctrl.update();
     }
 
     private static void moveCardToFountain(Card cardToMove, CardColumn fromColumn, CardFountain toFountain) {
@@ -207,13 +203,9 @@ public class DragController {
         dragVBox.getChildren().remove(stackPane);
         // Remove from column
         fromColumn.removeCard(cardToMove);
-        // Add to fountain
-        toFountain.addCard(cardToMove);
-        if (ctrl.WITH_BACKEND) {
-            // Send message to backend
-            ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardToMove, toFountain));
-            toFountain.getStackPane().setEffect(null);
-        }
+
+        ctrl.SendMessageToClient(StringUtility.formatMoveCommand(cardToMove, fromColumn, toFountain));
+        ctrl.update();
     }
 
     private static List<Card> getCardsAtMouse(MouseEvent event) {

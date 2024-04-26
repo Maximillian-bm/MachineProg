@@ -11,7 +11,8 @@ import java.util.List;
 public class StringUtility {
 
     static public void updateBoardFromString(List<CardColumn> columns, List<CardFountain> fountains, String input) {
-        String[] tokens = input.split("\\s{2,}"); // Split by "  ". (Two spaces)
+
+        String[] tokens = input.split(" "); // Split by "  ". (Two spaces)
         for (int i = 0; i < 7; i++) {
             List<Card> columnCards = getCardsFromString(tokens[i]);
             for (Card card : columnCards) {
@@ -21,16 +22,17 @@ public class StringUtility {
         for (int i = 7; i < 11; i++) {
             List<Card> fountainsCards = getCardsFromString(tokens[i]);
             for (Card card : fountainsCards) {
-                fountains.get(i).addCard(card);
+                fountains.get(i - 7).addCard(card);
             }
         }
     }
 
     static private List<Card> getCardsFromString(String input) {
+        input = input.substring(0, input.length() - 1);
         List<Card> cardsFromString = new ArrayList<>();
         String[] tokens = input.split("(?<=\\G.{2})"); // Split by " ". (One space)
         for (String token : tokens) {
-            cardsFromString.add(getCardFromString(token));
+            if(!token.isEmpty()) cardsFromString.add(getCardFromString(token));
         }
         return cardsFromString;
     }
@@ -43,7 +45,7 @@ public class StringUtility {
         }
     }
 
-    static public String formatMoveCommand(Card cardToMove, CardContainer toContainer) {
-        return cardToMove.getColumn().toString() + ":" + cardToMove + "->" + toContainer.toString();
+    static public String formatMoveCommand(Card cardToMove, CardContainer fromContainer, CardContainer toContainer) {
+        return fromContainer.toString() + ":" + cardToMove + "->" + toContainer.toString();
     }
 }
