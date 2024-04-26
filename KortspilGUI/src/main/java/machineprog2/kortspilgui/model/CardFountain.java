@@ -1,10 +1,7 @@
 package machineprog2.kortspilgui.model;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Objects;
@@ -12,8 +9,6 @@ import java.util.Stack;
 
 public class CardFountain extends CardContainer {
     private final Suit fountainSuit;
-    private final Image fountainImage;
-    private StackPane fountainRootStackPane;
 
     public CardFountain(VBox vBox, int index) {
         super(vBox, index);
@@ -24,7 +19,7 @@ public class CardFountain extends CardContainer {
             case 3 -> Suit.Diamonds;
             default -> Suit.Spades;
         };
-        this.fountainImage = getFountainImage();
+        this.backgroundImage = getBackgroundImage();
     }
 
     public VBox getVBox() {
@@ -34,7 +29,10 @@ public class CardFountain extends CardContainer {
     public void addCard(Card card) {
         vBox.getChildren().add(card.getStackPane());
         cards.addLast(card);
+        card.setCardContainer(this);
         card.setIsInFountain(true);
+        card.getStackPane().setMinSize(Region.USE_COMPUTED_SIZE, 1);
+        card.getStackPane().setPrefSize(Region.USE_COMPUTED_SIZE, 1);
     }
 
     public Stack<Card> getCards() {
@@ -60,18 +58,11 @@ public class CardFountain extends CardContainer {
 
     @Override
     public void reset() {
-        super.reset();
-        CardJavaFX cardJavaFX = new CardJavaFX(1);
-        cardJavaFX.imageView.setImage(fountainImage);
-        vBox.getChildren().add(cardJavaFX.stackPane);
-        fountainRootStackPane = cardJavaFX.stackPane;
+        reset(1);
     }
 
-    public StackPane getStackPane() {
-        return fountainRootStackPane;
-    }
-
-    private Image getFountainImage() {
+    @Override
+    protected Image getBackgroundImage() {
         String imagePath = "/machineprog2/kortspilgui/art/Fountain" + fountainSuit + ".png";
         try {
             return new Image(Objects.requireNonNull(CardFountain.class.getResourceAsStream(imagePath)));

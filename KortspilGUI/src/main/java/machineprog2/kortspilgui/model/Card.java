@@ -13,7 +13,7 @@ public class Card {
     private final Image image_card;
 
     private boolean visible;
-    private CardColumn column;
+    private CardContainer container;
     private boolean isInFountain;
 
     public Card(int value, Suit suit, boolean visible) {
@@ -28,8 +28,8 @@ public class Card {
         updateImageFromVisibility();
     }
 
-    public void setCardColumn(CardColumn column) {
-        this.column = column;
+    public void setCardContainer(CardContainer container) {
+        this.container = container;
     }
 
     private Image getCardImage() {
@@ -66,8 +66,8 @@ public class Card {
         return suit;
     }
 
-    public CardColumn getColumn() {
-        return column;
+    public CardContainer getContainer() {
+        return container;
     }
 
     private void updateImageFromVisibility() {
@@ -119,7 +119,7 @@ public class Card {
         return Character.toString(cardValueToChar(value)) + cardSuitToChar(suit);
     }
     public String getPositionAsString() {
-        return String.valueOf(column.getIndex() + 1) + column.getCardRow(this);
+        return String.valueOf(container.getIndex() + 1) + container.getCardRow(this);
     }
 
     public boolean hasOtherColor(Card otherCard) {

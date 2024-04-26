@@ -32,7 +32,6 @@ int main() {
             if(recive[0] != '\0') break;
             //printf("empty");
         }
-        //readFromServer(recive);
 
         for(int i = 0; i < 21; i++){
             board.input[i] = recive[i];
@@ -92,6 +91,7 @@ int main() {
         }
         formatForServer(&board, send);
         writeToServer(send);
+        //printf("\nSending %c command to server!\n", send[0]);
         printBord(&board);
     }
     abort();

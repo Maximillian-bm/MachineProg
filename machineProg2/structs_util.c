@@ -304,7 +304,8 @@ void formatForServer(struct Board* board, char* msg){
                 } else {
                     if (pile > 10) {
                         msg[(i * 2) + 2] = '\0';
-                        return;
+                        i = (i * 2) + 2;
+                        break;
                     }
                     card = board->f[pile - 7];
                 }
@@ -320,6 +321,12 @@ void formatForServer(struct Board* board, char* msg){
             }
             i++;
         }
+        // Pushing all characters one space to the right, then adding B at first index
+        while (i >= 0) {
+            msg[i + 1] = msg[i];
+            i--;
+        }
+        msg[0] = 'B'; // B for board
     }else{
         while(i < 52){
             if(!board->deck[i].created){

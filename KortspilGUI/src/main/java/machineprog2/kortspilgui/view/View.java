@@ -40,7 +40,7 @@ public class View implements Observer {
         ctrl = fxmlLoader.getController();
         ctrl.addObserver(this);
         // Handle key presses
-        scene.setOnKeyPressed(event -> ctrl.keyPressed(event.getCode()));
+        scene.setOnKeyPressed(event -> ctrl.keyPressed(event));
     }
 
     @Override

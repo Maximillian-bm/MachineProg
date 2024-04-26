@@ -12,12 +12,18 @@ public class StringUtility {
 
     static public void updateBoardFromString(List<CardColumn> columns, List<CardFountain> fountains, String input) {
         String[] tokens = input.split("  "); // Split by "  ". (Two spaces)
-        for (int i = 0; i < 7; i++) {List<Card> columnCards = getCardsFromString(tokens[i]);
+        //System.out.println("columns:");
+        for (int i = 0; i < 7; i++) {
+            List<Card> columnCards = getCardsFromString(tokens[i]);
             for (Card card : columnCards) {
                 columns.get(i).addCard(card);
             }
         }
+        //System.out.println("fountains:");
         for (int i = 7; i < 11; i++) {
+            if (tokens.length <= i) {
+                return;
+            }
             List<Card> fountainsCards = getCardsFromString(tokens[i]);
             for (Card card : fountainsCards) {
                 fountains.get(i - 7).addCard(card);
@@ -26,9 +32,8 @@ public class StringUtility {
     }
 
     static private List<Card> getCardsFromString(String input) {
-        input = input.substring(0, input.length() - 1);
         List<Card> cardsFromString = new ArrayList<>();
-        String[] tokens = input.split("(?<=\\G.{2})"); // Split by " ". (One space)
+        String[] tokens = input.split("(?<=\\G.{2})");
         for (String token : tokens) {
             if(!token.isEmpty()) cardsFromString.add(getCardFromString(token));
         }
@@ -44,6 +49,7 @@ public class StringUtility {
     }
 
     static public String formatMoveCommand(Card cardToMove, CardContainer fromContainer, CardContainer toContainer) {
-        return fromContainer.toString() + ":" + cardToMove + "->" + toContainer.toString();
+        boolean isFromFountain = fromContainer.toString().charAt(0) == 'F';
+        return fromContainer.toString() + (isFromFountain ? "" : (":" + cardToMove)) + "->" + toContainer.toString();
     }
 }

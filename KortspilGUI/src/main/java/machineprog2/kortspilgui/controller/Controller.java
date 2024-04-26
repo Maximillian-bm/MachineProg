@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import machineprog2.kortspilgui.model.*;
@@ -15,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static machineprog2.kortspilgui.controller.DragController.*;
+import javafx.scene.input.KeyEvent;
 
 public class Controller implements Initializable {
     private final List<Observer> observers;
@@ -23,6 +26,8 @@ public class Controller implements Initializable {
     private static ServerController serverCtrl;
     private static final Random random = new Random();
     public final boolean WITH_BACKEND;
+    private static final KeyCombination undoCombination = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+
 
     public Controller() {
         this.observers = new ArrayList<>();
@@ -37,10 +42,9 @@ public class Controller implements Initializable {
     public VBox fountainsVBox;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private VBox dummyDeck;
 
-    public void update(){
-        setBoardFromString(serverCtrl.getLastBoardUpdate());
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainMenu.setVisible(true);
@@ -66,14 +70,18 @@ public class Controller implements Initializable {
         }
     }
 
-    public void keyPressed(KeyCode keyCode) {
-        if (keyCode == KeyCode.ESCAPE) {
+    public void keyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
             setMainMenuVisible(!mainMenu.isVisible()); // toggling
         }
         if (!WITH_BACKEND) {
-            if (keyCode == KeyCode.G) {
+            if (event.getCode() == KeyCode.G) {
                 System.out.println("Setting board");
                 setBoardFromString("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
+            }
+        } else {
+            if (undoCombination.match(event)) {
+                sendMessageToClient("U");
             }
         }
     }
@@ -86,7 +94,7 @@ public class Controller implements Initializable {
      *  Example input:
      *  updateBoard("1C  []2C3C4C5C6C  [][]7C8C9CTCJC  [][][]QCKC1H2H3H  [][][][]4H5H6H7H8H  [][][][][]9HTHJHQHKH  [][][][][][]1D2D3D4D5D");
      */
-    private void setBoardFromString(String boardString) {
+    public void setBoardFromString(String boardString) {
         resetBoard();
         StringUtility.updateBoardFromString(cardColumns, cardFountains, boardString);
         updateCardEventListeners();
@@ -107,6 +115,11 @@ public class Controller implements Initializable {
                 initializeCardEventListeners(card);
             }
         }
+        for (CardFountain fountain : cardFountains) {
+            for (Card card : fountain.getCards()) {
+                initializeCardEventListeners(card);
+            }
+        }
     }
 
     public static List<Card> getCards() {
@@ -115,6 +128,10 @@ public class Controller implements Initializable {
             cardList.addAll(column.getCards());
         }
         return cardList;
+    }
+
+    public static List<CardColumn> getColumns() {
+        return cardColumns;
     }
 
     public static List<CardFountain> getFountains() {
@@ -167,24 +184,48 @@ public class Controller implements Initializable {
         updateCardEventListeners();
     }
 
-    public void SendMessageToClient(String message) {
+    public void sendMessageToClient(String message) {
         serverCtrl.addMessageToClient(message);
+        handleMessageFromClient();
+    }
+
+    private void handleMessageFromClient() {
+        try {
+            String receivedMessage = serverCtrl.getReceiveMessageQueue().take();
+            char messageCode = receivedMessage.charAt(0);
+            switch (messageCode) {
+                case 'B':
+                    System.out.println("[Client]: board data");
+                    setBoardFromString(receivedMessage.substring(1));
+                    ServerController.setClientReadyToReceive();
+                    break;
+                case 'Z': // Adding case, since we know this message.
+                    System.out.println("[Client]: OK");
+                    ServerController.setClientReadyToReceive();
+                    break;
+                default:
+                    System.out.println("No handling for messageCode '" + messageCode + "' from server. Full message: \n" + receivedMessage);
+                    break;
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Can't get message from client. Exception message: " + e.getMessage());
+        }
     }
 
     @FXML
     private void event_newGame() {
         setMainMenuVisible(false);
+        dummyDeck.setVisible(false);
         System.out.println("Starting new game...");
         resetBoard();
 
         if (WITH_BACKEND) {
-            // TODO: Kald backend og bed om nyt spil
-            SendMessageToClient("LD");
-            SendMessageToClient("SR");
-            SendMessageToClient("SW");
-            SendMessageToClient("SR");
-            SendMessageToClient("P");
-            update();
+            sendMessageToClient("Q");
+            sendMessageToClient("LD");
+            sendMessageToClient("SR");
+            sendMessageToClient("SW");
+            sendMessageToClient("SR");
+            sendMessageToClient("P");
         } else {
             addRandomCardsFromJSON();
         }
