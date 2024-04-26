@@ -11,10 +11,8 @@ import java.util.List;
 public class StringUtility {
 
     static public void updateBoardFromString(List<CardColumn> columns, List<CardFountain> fountains, String input) {
-
-        String[] tokens = input.split(" "); // Split by "  ". (Two spaces)
-        for (int i = 0; i < 7; i++) {
-            List<Card> columnCards = getCardsFromString(tokens[i]);
+        String[] tokens = input.split("  "); // Split by "  ". (Two spaces)
+        for (int i = 0; i < 7; i++) {List<Card> columnCards = getCardsFromString(tokens[i]);
             for (Card card : columnCards) {
                 columns.get(i).addCard(card);
             }
