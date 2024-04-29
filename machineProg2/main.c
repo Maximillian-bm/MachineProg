@@ -1,5 +1,6 @@
 #include "commands.c"
 #include "game_util.c"
+#include <string.h>
 
 int main() {
 
@@ -269,7 +270,7 @@ int main() {
     test_passed = true;
     for (int i = 0; i < 52; i++) {
         card = deck[i];
-        if (!card.created || card.hidden) {
+        if (!card.created || !card.hidden) {
             test_passed = false;
             break;
         }
