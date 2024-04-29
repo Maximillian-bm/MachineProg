@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="58c33c4d-2005-45d6-b162-bffba7a8c379" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/.cmake/api/v1/reply/cache-v2-82ffae53cd0857fb0b94.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-ec61fc5024c5846993c3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-d8db7240d7302eac51f5.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/.cmake/api/v1/reply/index-2024-04-25T16-48-49-0917.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-f1b2b3b9642b509dfa7c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/main.c.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/main.c.obj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/MachineProg2.dir/objects.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/MachineProg2.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/MachineProg2.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/MachineProgOffLine.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/MachineProgOffLine.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../machineProg2/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2flZc8pXVscbeh5dDoA0wiyvBig" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "frontEnd",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Elias Yan Mortensen/Documents/uni_DTU/2_semester/MachineProg/MachineProg/KortspilGUI"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="58c33c4d-2005-45d6-b162-bffba7a8c379" name="Changes" comment="" />
+      <created>1714377701758</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714377701758</updated>
+    </task>
+    <servers />
+  </component>
+</project>
