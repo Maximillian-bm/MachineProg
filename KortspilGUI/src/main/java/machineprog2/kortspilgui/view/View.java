@@ -26,11 +26,15 @@ public class View implements Observer {
     private Scene scene;
 
     public void start(Stage stage) throws IOException {
-//        try {
-//            //Runtime.getRuntime().exec("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\main.exe", null, new File("C:\\Users\\Gusta\\Documents\\Uni\\Maskinkode\\Maskinkode Projekt\\machineProg2\\"));
-//        } catch (Exception e) {
-//            System.out.println("error loading .exe");
-//        }
+        try {
+            String path = System.getProperty("user.dir")+"\\MachineProg2.exe";
+            System.out.println(path);
+            ProcessBuilder processBuilder = new ProcessBuilder(path);
+            processBuilder.start();
+            System.out.println("Exe file started successfully.");
+        }catch (IOException e) {
+            System.out.println("Error while starting exe file: " + e.getMessage());
+        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("kortscene.fxml"));
         scene = new Scene(fxmlLoader.load(), Constants.WINDOW_SIZE.width, Constants.WINDOW_SIZE.height, Color.DARKGRAY);

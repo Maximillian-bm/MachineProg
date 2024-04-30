@@ -51,6 +51,7 @@ int readFromServer(char* msg){
 int writeToServer(char* msg){
     if (send(sockfd, msg, strlen(msg), 0) == SOCKET_ERROR) {
         printf("\nWrite to server failed\n");
+
         return -1;
     }
 

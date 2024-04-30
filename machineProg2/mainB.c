@@ -28,8 +28,12 @@ int main() {
     while(!exit) {
 
         while(true){
-            readFromServer(recive);
+            int temp = readFromServer(recive);
             if(recive[0] != '\0') break;
+            if(temp < 1){
+                exit = true;
+                break;
+            }
             //printf("empty");
         }
 
